@@ -1,3 +1,3 @@
 # flutter_mvvm
 
-A new Flutter project.
+A new Flutter project to demonstrate MVVM architecture.

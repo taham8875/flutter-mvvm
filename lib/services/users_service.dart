@@ -32,4 +32,24 @@ class UsersService {
       );
     }
   }
+
+  addUser(User user) async {
+    try {
+      final response = await dio.post('$BASE_URL/users', data: user.toJson());
+      if (response.statusCode != 201) {
+        // Handle unexpected status codes
+        throw DioException(
+          response: response,
+          error: 'Unexpected status code: ${response.statusCode}',
+          requestOptions: response.requestOptions,
+        );
+      }
+    } catch (e) {
+      // Handle Dio errors
+      throw DioException(
+        error: 'Failed to add user: $e',
+        requestOptions: RequestOptions(path: '$BASE_URL/users'),
+      );
+    }
+  }
 }

@@ -33,4 +33,20 @@ class UserViewModel extends ChangeNotifier {
     _loading = false;
     notifyListeners();
   }
+
+  Future<void> addUser(User user) async {
+    _loading = true;
+    _error = '';
+    notifyListeners();
+
+    try {
+      await _usersService.addUser(user);
+      _users.add(user);
+    } on DioException catch (e) {
+      _error = e.message ?? 'An error occurred';
+    }
+
+    _loading = false;
+    notifyListeners();
+  }
 }
