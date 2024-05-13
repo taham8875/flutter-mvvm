@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/components/user_card.dart';
 import 'package:flutter_mvvm/view_model/user_view_model.dart';
+import 'package:flutter_mvvm/views/users/show.dart';
 import 'package:provider/provider.dart';
 
 class UserIndex extends StatelessWidget {
@@ -29,17 +31,13 @@ class UserIndex extends StatelessWidget {
       itemCount: userViewModel.users.length,
       itemBuilder: (context, index) {
         final user = userViewModel.users[index];
-        return ListTile(
-          title: Text(
-            user.name ?? '',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Text(
-            user.email ?? '',
-          ),
-        );
+        return UserCard(
+            user: user,
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return UserShow(user: user);
+              }));
+            });
       },
     );
   }
